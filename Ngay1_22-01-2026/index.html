@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Products - Bài tập</title>
+  </head>
+  <body>
+    <h1>Products - Mở Console để xem kết quả</h1>
+
+    <script>
+      function Product(id, name, price, quantity, category, isAvailable) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+        this.category = category;
+        this.isAvailable = isAvailable; // true / false
+      }
+
+      const products = [
+        new Product("P001", "Laptop Pro 14", 42000000, 5, "Computers", true),
+        new Product("P002", "Laptop Air 13", 28000000, 0, "Computers", true),
+        new Product("P003", "Mechanical Keyboard", 2500000, 12, "Accessories", true),
+        new Product("P004", "Wireless Mouse", 900000, 30, "Accessories", true),
+        new Product("P005", "USB-C Hub 8-in-1", 1200000, 0, "Accessories", false),
+        new Product("P006", "27-inch Monitor", 7500000, 7, "Displays", true),
+      ];
+
+      const namePriceList = products.map((p) => ({ name: p.name, price: p.price }));
+      const inStockProducts = products.filter((p) => p.quantity > 0);
+      const hasOver30M = products.some((p) => p.price > 30000000);
+
+      const accessories = products.filter((p) => p.category === "Accessories");
+      const allAccessoriesAvailable = accessories.every((p) => p.isAvailable === true);
+
+      const totalInventoryValue = products.reduce((sum, p) => sum + p.price * p.quantity, 0);
+
+      console.log("\nCâu 3 - name, price:");
+      console.log(namePriceList);
+
+      console.log("\nCâu 4 - còn hàng (quantity > 0):");
+      console.log(inStockProducts);
+
+      console.log("\nCâu 5 - có sản phẩm > 30.000.000?");
+      console.log(hasOver30M);
+
+      console.log('\nCâu 6 - tất cả "Accessories" đang được bán?');
+      console.log(allAccessoriesAvailable);
+
+      console.log("\nCâu 7 - tổng giá trị kho:");
+      console.log(totalInventoryValue);
+
+      console.log("\nCâu 8 - for...of:");
+      for (const p of products) {
+        const status = p.isAvailable ? "Đang bán" : "Ngừng bán";
+        console.log(`- ${p.name} | ${p.category} | ${status}`);
+      }
+
+      console.log("\nCâu 9 - for...in (sản phẩm đầu tiên):");
+      for (const key in products[0]) {
+        if (Object.prototype.hasOwnProperty.call(products[0], key)) {
+          console.log(`${key}: ${products[0][key]}`);
+        }
+      }
+
+      const sellingAndInStockNames = products
+        .filter((p) => p.isAvailable === true && p.quantity > 0)
+        .map((p) => p.name);
+
+      console.log("\nCâu 10 - tên sản phẩm đang bán & còn hàng:");
+      console.log(sellingAndInStockNames);
+    </script>
+  </body>
+</html>
+
